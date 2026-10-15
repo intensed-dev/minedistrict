@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Minecraft Prefix Generator</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111318;
+      --panel: #1b1e26;
+      --panel-2: #242833;
+      --border: #343947;
+      --text: #f3f4f6;
+      --muted: #a4a9b6;
+      --accent: #8b9cff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(ellipse at top, #202536 0%, var(--bg) 55%);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      padding: 24px 14px 40px;
+    }
+    main { width: min(100%, 680px); margin: 0 auto; }
+    header { margin: 8px 0 24px; }
+    .eyebrow {
+      color: var(--accent);
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 8px 0; font-size: clamp(1.8rem, 8vw, 2.7rem); letter-spacing: -.045em; line-height: 1.08; }
+    .intro { color: var(--muted); line-height: 1.55; margin: 0; }
+    .panel {
+      background: color-mix(in srgb, var(--panel) 94%, transparent);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      margin-top: 14px;
+      box-shadow: 0 14px 36px #00000018;
+    }
+    .panel h2 { font-size: 1rem; margin: 0 0 16px; }
+    .field { display: grid; gap: 7px; margin-bottom: 16px; }
+    label { color: #d9dce5; font-size: .87rem; font-weight: 650; }
+    input, select, textarea {
+      width: 100%;
+      min-width: 0;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: var(--panel-2);
+      color: var(--text);
+      font: inherit;
+      padding: 12px 13px;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px #8b9cff20; }
+    .hint { color: var(--muted); font-size: .78rem; margin-top: -9px; }
+    .color-option { display: flex; align-items: center; gap: 9px; }
+    .preview {
+      min-height: 92px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 10px;
+      border: 1px dashed #454b5b;
+      border-radius: 12px;
+      background-color: #111318;
+      background-image: linear-gradient(#ffffff06 1px, transparent 1px), linear-gradient(90deg, #ffffff06 1px, transparent 1px);
+      background-size: 16px 16px;
+      overflow-wrap: anywhere;
+      text-align: center;
+    }
+    .minecraft-text {
+      font-family: "Courier New", monospace;
+      font-weight: 900;
+      font-size: clamp(1.15rem, 5.5vw, 1.65rem);
+      letter-spacing: -.055em;
+      text-shadow: 2px 2px 0 #222;
+      overflow-wrap: anywhere;
+    }
+    .code-wrap { position: relative; }
+    textarea {
+      min-height: 116px;
+      resize: vertical;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .83rem;
+      line-height: 1.55;
+      color: #d7e0ff;
+      padding-right: 12px;
+    }
+    .actions { display: flex; gap: 9px; margin-top: 11px; }
+    button {
+      border: 0;
+      border-radius: 11px;
+      background: var(--accent);
+      color: #101322;
+      font: inherit;
+      font-weight: 800;
+      padding: 12px 15px;
+      min-height: 45px;
+      cursor: pointer;
+      flex: 1;
+    }
+    button.secondary { background: #303543; color: var(--text); border: 1px solid var(--border); }
+    button:active { transform: translateY(1px); }
+    .status { min-height: 1.2em; color: #a9e7b7; font-size: .82rem; margin: 10px 0 0; }
+    footer { color: #858b99; font-size: .76rem; text-align: center; margin: 22px 0 0; }
+    @media (min-width: 560px) {
+      body { padding: 42px 22px 52px; }
+      .panel { padding: 22px; }
+      .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="eyebrow">Minecraft · Formatting tool</div>
+      <h1>Prefix Generator</h1>
+      <p class="intro">Erstelle ein farbiges Prefix und kopiere den passenden JSON-Text für deinen Minecraft-Chat oder dein Plugin.</p>
+    </header>
+
+    <section class="panel" aria-labelledby="settings-title">
+      <h2 id="settings-title">Dein Prefix</h2>
+      <div class="field">
+        <label for="prefix">Prefix-Text</label>
+        <input id="prefix" type="text" maxlength="32" value="GHG" placeholder="z. B. GHG" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="field">
+        <label for="color">Farbe des Prefix-Texts</label>
+        <select id="color">
+          <option value="dark_red">Dunkelrot</option>
+          <option value="red">Rot</option>
+          <option value="gold">Gold</option>
+          <option value="yellow">Gelb</option>
+          <option value="dark_green">Dunkelgrün</option>
+          <option value="green">Grün</option>
+          <option value="aqua">Aqua</option>
+          <option value="dark_aqua">Dunkelaqua</option>
+          <option value="dark_blue">Dunkelblau</option>
+          <option value="blue">Blau</option>
+          <option value="light_purple">Hellviolett</option>
+          <option value="dark_purple">Dunkelviolett</option>
+          <option value="white">Weiß</option>
+          <option value="gray">Grau</option>
+          <option value="dark_gray">Dunkelgrau</option>
+          <option value="black">Schwarz</option>
+        </select>
+      </div>
+      <p class="hint">Der Prefix wird automatisch in Großbuchstaben angezeigt.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="preview-title">
+      <h2 id="preview-title">Preview</h2>
+      <div class="preview" role="img" aria-label="Vorschau des Prefixes">
+        <span class="minecraft-text"><span id="open-bracket" style="color:#aaaaaa">[</span><span id="prefix-preview" style="color:#ff5555">GHG</span><span id="close-bracket" style="color:#aaaaaa">] </span><span id="player-preview" style="color:#ffffff">beam2me</span></span>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="code-title">
+      <h2 id="code-title">Generierter Code</h2>
+      <div class="code-wrap">
+        <textarea id="output" readonly aria-label="Generierter JSON-Code" spellcheck="false"></textarea>
+      </div>
+      <div class="actions">
+        <button id="copy" type="button">Code kopieren</button>
+        <button id="select" class="secondary" type="button">Code markieren</button>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </section>
+    <footer>Einzelne HTML-Datei · Funktioniert lokal im Browser</footer>
+  </main>
+
+  <script>
+    const prefixInput = document.querySelector("#prefix");
+    const colorSelect = document.querySelector("#color");
+    const prefixPreview = document.querySelector("#prefix-preview");
+    const playerPreview = document.querySelector("#player-preview");
+    const output = document.querySelector("#output");
+    const status = document.querySelector("#status");
+
+    const minecraftColors = {
+      dark_red: "#aa0000",
+      red: "#ff5555",
+      gold: "#ffaa00",
+      yellow: "#ffff55",
+      dark_green: "#00aa00",
+      green: "#55ff55",
+      aqua: "#55ffff",
+      dark_aqua: "#00aaaa",
+      dark_blue: "#0000aa",
+      blue: "#5555ff",
+      light_purple: "#ff55ff",
+      dark_purple: "#aa00aa",
+      white: "#ffffff",
+      gray: "#aaaaaa",
+      dark_gray: "#555555",
+      black: "#000000"
+    };
+
+    function update() {
+      const prefix = prefixInput.value.toUpperCase();
+      const player = "beam2me";
+      const color = colorSelect.value;
+      prefixPreview.textContent = prefix;
+      prefixPreview.style.color = minecraftColors[color];
+      playerPreview.textContent = player;
+
+      const safePrefix = JSON.stringify(prefix);
+      output.value =
+        `[{text:"[",color:"gray"},{text:${safePrefix},color:"${color}"},{text:"] ",color:"gray"}]`;
+      status.textContent = "";
+    }
+
+    prefixInput.addEventListener("input", update);
+    colorSelect.addEventListener("change", update);
+
+    document.querySelector("#copy").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(output.value);
+        status.textContent = "Code wurde kopiert.";
+      } catch {
+        output.focus();
+        output.select();
+        const copied = document.execCommand("copy");
+        status.textContent = copied ? "Code wurde kopiert." : "Kopieren nicht möglich – bitte den Code markieren und kopieren.";
+      }
+    });
+
+    document.querySelector("#select").addEventListener("click", () => {
+      output.focus();
+      output.select();
+      status.textContent = "Code markiert. Du kannst ihn jetzt kopieren.";
+    });
+
+    update();
+  </script>
+</body>
+</html>
