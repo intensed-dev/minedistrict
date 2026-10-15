@@ -126,8 +126,8 @@
 <body>
   <main>
     <header>
-      <div class="eyebrow">Minecraft · Formatting tool</div>
-      <h1>Prefix Generator</h1>
+      <div class="eyebrow">MineDistrict · Team Generator</div>
+      <h1>Team Generator</h1>
       <p class="intro">Erstelle ein farbiges Prefix und kopiere den passenden JSON-Text für deinen Minecraft-Chat oder dein Plugin.</p>
     </header>
 
@@ -151,11 +151,22 @@
           <option value="dark_blue">Dunkelblau</option>
           <option value="blue">Blau</option>
           <option value="light_purple">Hellviolett</option>
-          <option value="dark_purple">Dunkelviolett</option>
+          <option value="dark_purple" selected>Dunkelviolett</option>
           <option value="white">Weiß</option>
           <option value="gray">Grau</option>
           <option value="dark_gray">Dunkelgrau</option>
           <option value="black">Schwarz</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="ign">Dein Spielername</label>
+        <select id="ign">
+          <option value="dark_red">beam2me</option>
+          <option value="red">_Intense</option>
+          <option value="gold">Clipf</option>
+          <option value="yellow">Omgleo</option>
+          <option value="dark_green">Rexy_117</option>
+          <option value="green">FakeWanabe7</option>
         </select>
       </div>
       <p class="hint">Der Prefix wird automatisch in Großbuchstaben angezeigt.</p>
@@ -185,6 +196,7 @@
   <script>
     const prefixInput = document.querySelector("#prefix");
     const colorSelect = document.querySelector("#color");
+    const playerSelect = document.querySelector("#ign");
     const prefixPreview = document.querySelector("#prefix-preview");
     const playerPreview = document.querySelector("#player-preview");
     const output = document.querySelector("#output");
@@ -211,7 +223,7 @@
 
     function update() {
       const prefix = prefixInput.value.toUpperCase();
-      const player = "beam2me";
+      const player = playerSelect.value;
       const color = colorSelect.value;
       prefixPreview.textContent = prefix;
       prefixPreview.style.color = minecraftColors[color];
